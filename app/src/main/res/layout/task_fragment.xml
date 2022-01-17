@@ -50,7 +50,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/purple_500"
         android:padding="8dp"
-        android:text="@string/btn_cadastrar"
+        android:text="@string/btn_registrer"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

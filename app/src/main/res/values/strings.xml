@@ -4,7 +4,7 @@
     <!-- taskFragment-->
     <string name="task_description_hint">Descreva sua tarefa</string>
     <string name="task_title_hint">Titulo da tarefa</string>
-    <string name="btn_cadastrar">Cadastrar</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_registrer">Cadastrar</string>
+    <string name="task_insert_successfully">Tarefa cadastrada com sucesso!</string>
+    <string name="task_error_to_insert">Ops! Houve um erro ao cadastrar essa tarefa</string>
 </resources>
