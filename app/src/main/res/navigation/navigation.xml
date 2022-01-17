@@ -13,7 +13,8 @@
         <action
             android:id="@+id/action_splashFragment_to_taskFragment"
             app:destination="@id/taskFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
     </fragment>
