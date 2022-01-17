@@ -18,6 +18,7 @@ class DataBaseDataSource(
     override suspend fun updateTask(id: Long, title: String, description: String) {
         taskDAO.updateTask(
             TaskEntity(
+                id = id,
                 title = title,
                 description = description
             )
