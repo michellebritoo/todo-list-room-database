@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">To do list</string>
+
+    <!-- taskFragment-->
+    <string name="task_description_hint">Descreva sua tarefa</string>
+    <string name="task_title_hint">Titulo da tarefa</string>
+    <string name="btn_cadastrar">Cadastrar</string>
 </resources>
