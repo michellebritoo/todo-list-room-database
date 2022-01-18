@@ -61,6 +61,7 @@ class TaskFragment : Fragment() {
     private fun clearFields() {
         binding.TIETTaskTitle.text?.clear()
         binding.TIETTaskDescription.text?.clear()
+        binding.TILTaskTitle.error = null
     }
 
 
@@ -76,7 +77,12 @@ class TaskFragment : Fragment() {
             val title = binding.TIETTaskTitle.text.toString()
             val description = binding.TIETTaskDescription.text.toString()
 
-            viewModel.addTask(title, description)
+            Pair(title, description).let {
+                if(it.first.isEmpty())
+                    binding.TILTaskTitle.error = "Informe o título da tarefa"
+                else
+                    viewModel.addTask(title, description)
+            }
         }
     }
 }
