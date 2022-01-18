@@ -1,24 +1,23 @@
 package com.michelle.todolist.ui.task
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.michelle.todolist.R
-import com.michelle.todolist.databinding.TaskFragmentBinding
+import com.michelle.todolist.data.db.AppDataBase
+import com.michelle.todolist.data.db.dao.TaskDAO
+import com.michelle.todolist.data.repository.DataBaseDataSource
+import com.michelle.todolist.data.repository.TaskRepository
 
-class TaskFragment : Fragment() {
-    private val viewModel: TaskViewModel by viewModels()
-    private lateinit var binding: TaskFragmentBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = TaskFragmentBinding.inflate(layoutInflater, container, false)
-        return binding.root
+class TaskFragment : Fragment(R.layout.task_fragment) {
+    private val viewModel: TaskViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val taskDAO: TaskDAO = AppDataBase.getInstance(requireContext()).taskDao
+                val repository: TaskRepository = DataBaseDataSource(taskDAO)
+                return TaskViewModel(repository) as T
+            }
+        }
     }
 }
