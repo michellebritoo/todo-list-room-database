@@ -1,5 +1,6 @@
 package com.michelle.todolist.ui.task
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,7 @@ import com.michelle.todolist.databinding.TaskFragmentBinding
 import com.michelle.todolist.util.hideKeyboard
 
 class TaskFragment : Fragment() {
-    private lateinit var binding : TaskFragmentBinding
+    private lateinit var binding: TaskFragmentBinding
     private val viewModel: TaskViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -47,14 +48,14 @@ class TaskFragment : Fragment() {
     }
 
     private fun observeEvents() {
-        viewModel.taskInsertedData.observe(viewLifecycleOwner){ isInserted ->
-            if(isInserted){
+        viewModel.taskInsertedData.observe(viewLifecycleOwner) { isInserted ->
+            if (isInserted) {
                 clearFields()
                 hideKeyboard()
             }
         }
-        viewModel.taskMessageData.observe(viewLifecycleOwner){ stringResID->
-            Snackbar.make(requireView(),stringResID, Snackbar.LENGTH_LONG).show()
+        viewModel.taskMessageData.observe(viewLifecycleOwner) { stringResID ->
+            Snackbar.make(requireView(), stringResID, Snackbar.LENGTH_LONG).show()
         }
     }
 
@@ -67,22 +68,21 @@ class TaskFragment : Fragment() {
 
     private fun hideKeyboard() {
         val parentActivity = requireActivity()
-        if(parentActivity is AppCompatActivity){
+        if (parentActivity is AppCompatActivity) {
             parentActivity.hideKeyboard()
         }
     }
 
     private fun setListeners() {
-        binding.btnRegister.setOnClickListener{
+        binding.btnRegister.setOnClickListener {
             val title = binding.TIETTaskTitle.text.toString()
             val description = binding.TIETTaskDescription.text.toString()
 
-            Pair(title, description).let {
-                if(it.first.isEmpty())
-                    binding.TILTaskTitle.error = "Informe o título da tarefa"
-                else
-                    viewModel.addTask(title, description)
-            }
+            if (title.isEmpty())
+                binding.TILTaskTitle.error = getString(R.string.error_task_title)
+            else
+                viewModel.addTask(title, description)
+
         }
     }
 }

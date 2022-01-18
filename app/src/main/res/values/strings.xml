@@ -7,4 +7,5 @@
     <string name="btn_register">Cadastrar</string>
     <string name="task_insert_successfully">Tarefa cadastrada com sucesso!</string>
     <string name="task_error_to_insert">Ops! Houve um erro ao cadastrar essa tarefa</string>
+    <string name="error_task_title">Informe o título da tarefa</string>
 </resources>
