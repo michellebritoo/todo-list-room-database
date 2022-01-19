@@ -23,7 +23,7 @@ class SplashFragment : Fragment() {
         binding = FragmentSplashBinding.inflate(layoutInflater, container, false)
 
         Handler().postDelayed({
-            findNavController().navigate(R.id.action_splashFragment_to_taskFragment)
+            findNavController().navigate(R.id.action_splashFragment_to_taskListFragment)
         }, 1000)
 
         return binding.root

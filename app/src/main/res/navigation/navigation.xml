@@ -11,8 +11,8 @@
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
         <action
-            android:id="@+id/action_splashFragment_to_taskFragment"
-            app:destination="@id/taskFragment"
+            android:id="@+id/action_splashFragment_to_taskListFragment"
+            app:destination="@id/taskListFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/splashFragment"
@@ -27,5 +27,9 @@
         android:id="@+id/taskListFragment"
         android:name="com.michelle.todolist.ui.taskList.TaskListFragment"
         android:label="task_list_fragment"
-        tools:layout="@layout/task_list_fragment" />
+        tools:layout="@layout/task_list_fragment" >
+        <action
+            android:id="@+id/action_taskListFragment_to_taskFragment"
+            app:destination="@id/taskFragment" />
+    </fragment>
 </navigation>

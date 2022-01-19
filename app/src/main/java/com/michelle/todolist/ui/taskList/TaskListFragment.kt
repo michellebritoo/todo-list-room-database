@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.michelle.todolist.R
 import com.michelle.todolist.data.db.AppDataBase
 import com.michelle.todolist.data.db.dao.TaskDAO
 import com.michelle.todolist.data.db.entity.TaskEntity
@@ -40,11 +42,18 @@ class TaskListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeEvents()
+        setListeners()
     }
 
     private fun observeEvents() {
         viewModel.taskList.observe(viewLifecycleOwner) { taskList ->
             binding.RVTaskList.adapter = TaskListAdapter(list = taskList)
+        }
+    }
+
+    private fun setListeners() {
+        binding.btnAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_taskListFragment_to_taskFragment)
         }
     }
 }
