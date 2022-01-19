@@ -9,7 +9,7 @@
         android:id="@+id/splashFragment"
         android:name="com.michelle.todolist.ui.splash.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_taskFragment"
             app:destination="@id/taskFragment"
@@ -23,4 +23,9 @@
         android:name="com.michelle.todolist.ui.task.TaskFragment"
         android:label="task_fragment"
         tools:layout="@layout/task_fragment" />
+    <fragment
+        android:id="@+id/taskListFragment"
+        android:name="com.michelle.todolist.ui.taskList.TaskListFragment"
+        android:label="task_list_fragment"
+        tools:layout="@layout/task_list_fragment" />
 </navigation>
