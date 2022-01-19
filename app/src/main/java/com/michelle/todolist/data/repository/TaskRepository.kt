@@ -12,5 +12,5 @@ interface TaskRepository {
 
     suspend fun deleteAllTasks()
 
-    fun getAllTasks(): LiveData<List<TaskEntity>>
+    suspend fun getAllTasks(): List<TaskEntity>
 }

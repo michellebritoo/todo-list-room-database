@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.michelle.todolist.R
 import com.michelle.todolist.data.db.AppDataBase
 import com.michelle.todolist.data.db.dao.TaskDAO
-import com.michelle.todolist.data.db.entity.TaskEntity
 import com.michelle.todolist.data.repository.DataBaseDataSource
 import com.michelle.todolist.data.repository.TaskRepository
 import com.michelle.todolist.databinding.TaskListFragmentBinding
@@ -43,6 +42,11 @@ class TaskListFragment : Fragment() {
 
         observeEvents()
         setListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getTasks()
     }
 
     private fun observeEvents() {

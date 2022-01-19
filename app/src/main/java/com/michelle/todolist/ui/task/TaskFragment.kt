@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.michelle.todolist.R
 import com.michelle.todolist.data.db.AppDataBase
@@ -55,6 +56,8 @@ class TaskFragment : Fragment() {
         }
         viewModel.taskMessageData.observe(viewLifecycleOwner) { stringResID ->
             Snackbar.make(requireView(), stringResID, Snackbar.LENGTH_LONG).show()
+
+            findNavController().popBackStack()
         }
     }
 

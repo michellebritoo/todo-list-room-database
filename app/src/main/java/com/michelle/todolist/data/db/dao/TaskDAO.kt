@@ -1,6 +1,5 @@
 package com.michelle.todolist.data.db.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -22,5 +21,5 @@ interface TaskDAO {
     suspend fun deleteAllTasks()
 
     @Query("SELECT * FROM tasks")
-    fun getAllTasks(): LiveData<List<TaskEntity>>
+    suspend fun getAllTasks(): List<TaskEntity>
 }
