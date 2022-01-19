@@ -5,14 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.michelle.todolist.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.michelle.todolist.data.db.AppDataBase
+import com.michelle.todolist.data.db.dao.TaskDAO
 import com.michelle.todolist.data.db.entity.TaskEntity
-import com.michelle.todolist.databinding.TaskFragmentBinding
+import com.michelle.todolist.data.repository.DataBaseDataSource
+import com.michelle.todolist.data.repository.TaskRepository
 import com.michelle.todolist.databinding.TaskListFragmentBinding
 
 class TaskListFragment : Fragment() {
-    private lateinit var viewModel: TaskListViewModel
     private lateinit var binding: TaskListFragmentBinding
+    private val viewModel: TaskListViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val taskDAO: TaskDAO = AppDataBase.getInstance(requireContext()).taskDao
+                val repository: TaskRepository = DataBaseDataSource(taskDAO)
+                return TaskListViewModel(repository) as T
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,13 +39,12 @@ class TaskListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val taskListAdapter = TaskListAdapter(
-            list = listOf(
-                TaskEntity(id = 1, title = "teste", description = "desc"),
-                TaskEntity(id = 1, title = "teste", description = "desc")
-            )
-        )
+        observeEvents()
+    }
 
-        binding.RVTaskList.adapter = taskListAdapter
+    private fun observeEvents() {
+        viewModel.taskList.observe(viewLifecycleOwner) { taskList ->
+            binding.RVTaskList.adapter = TaskListAdapter(list = taskList)
+        }
     }
 }

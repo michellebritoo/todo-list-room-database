@@ -1,7 +1,10 @@
 package com.michelle.todolist.ui.taskList
 
 import androidx.lifecycle.ViewModel
+import com.michelle.todolist.data.repository.TaskRepository
 
-class TaskListViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class TaskListViewModel(
+    private val repository: TaskRepository
+) : ViewModel() {
+    val taskList = repository.getAllTasks()
 }

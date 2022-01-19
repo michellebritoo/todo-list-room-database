@@ -31,7 +31,7 @@ class TaskListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bindView(task: TaskEntity) {
         taskItem.apply {
             this.TVTaskTitle.text = task.title
-            this.TVTaskDescription.text = task.title
+            this.TVTaskDescription.text = task.description
         }
     }
 }

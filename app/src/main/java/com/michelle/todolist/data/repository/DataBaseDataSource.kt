@@ -29,6 +29,6 @@ class DataBaseDataSource(
 
     override suspend fun deleteAllTasks() = taskDAO.deleteAllTasks()
 
-    override suspend fun getAllTasks() = taskDAO.getAllTasks()
+    override fun getAllTasks() = taskDAO.getAllTasks()
 
 }
