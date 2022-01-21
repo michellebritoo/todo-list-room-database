@@ -51,7 +51,13 @@ class TaskListFragment : Fragment() {
 
     private fun observeEvents() {
         viewModel.taskList.observe(viewLifecycleOwner) { taskList ->
-            binding.RVTaskList.adapter = TaskListAdapter(list = taskList)
+            binding.RVTaskList.adapter = TaskListAdapter(list = taskList).apply {
+                onItemClick = { task ->
+                    val directions =
+                        TaskListFragmentDirections.actionTaskListFragmentToTaskFragment(task)
+                    findNavController().navigate(directions)
+                }
+            }
         }
     }
 

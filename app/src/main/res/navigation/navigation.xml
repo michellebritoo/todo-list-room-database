@@ -22,7 +22,12 @@
         android:id="@+id/taskFragment"
         android:name="com.michelle.todolist.ui.task.TaskFragment"
         android:label="task_fragment"
-        tools:layout="@layout/task_fragment" />
+        tools:layout="@layout/task_fragment" >
+        <argument
+            android:name="taskData"
+            app:argType="com.michelle.todolist.data.db.entity.TaskEntity"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/taskListFragment"
         android:name="com.michelle.todolist.ui.taskList.TaskListFragment"
