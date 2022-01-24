@@ -6,35 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.michelle.todolist.R
-import com.michelle.todolist.data.db.AppDataBase
-import com.michelle.todolist.data.db.dao.TaskDAO
-import com.michelle.todolist.data.repository.DataBaseDataSource
-import com.michelle.todolist.data.repository.TaskRepository
 import com.michelle.todolist.databinding.TaskFragmentBinding
 import com.michelle.todolist.ui.task.TaskViewModel.TaskState.Deleted
 import com.michelle.todolist.ui.task.TaskViewModel.TaskState.Inserted
 import com.michelle.todolist.ui.task.TaskViewModel.TaskState.Updated
 import com.michelle.todolist.util.hideKeyboard
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TaskFragment : Fragment() {
     private lateinit var binding: TaskFragmentBinding
     private val args: TaskFragmentArgs? by navArgs()
-    private val viewModel: TaskViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val taskDAO: TaskDAO = AppDataBase.getInstance(requireContext()).taskDao
-                val repository: TaskRepository = DataBaseDataSource(taskDAO)
-                return TaskViewModel(repository) as T
-            }
-        }
-    }
+    private val viewModel: TaskViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,7 +53,6 @@ class TaskFragment : Fragment() {
                 is Deleted -> {
                     clearFields()
                     hideKeyboard()
-                    findNavController().popBackStack()
                 }
             }
         }
