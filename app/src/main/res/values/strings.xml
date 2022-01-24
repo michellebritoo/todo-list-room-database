@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">To do list</string>
+    <string name="app_name">Lista de tarefas</string>
 
     <!-- taskFragment-->
     <string name="task_description_hint">Descreva sua tarefa</string>
