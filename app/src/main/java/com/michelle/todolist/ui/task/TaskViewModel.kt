@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.michelle.todolist.R
 import com.michelle.todolist.data.repository.TaskRepository
+import com.michelle.todolist.ui.task.TaskViewModel.TaskState.Deleted
 import com.michelle.todolist.ui.task.TaskViewModel.TaskState.Inserted
 import com.michelle.todolist.ui.task.TaskViewModel.TaskState.Updated
 import kotlinx.coroutines.launch
@@ -14,10 +15,24 @@ import kotlinx.coroutines.launch
 class TaskViewModel(
     private val repository: TaskRepository
 ) : ViewModel() {
-    val taskInsertedData: LiveData<TaskState> get() = _taskInsertedData
+    val taskState: LiveData<TaskState> get() = _taskStateData
     val taskMessageData: LiveData<Int> get() = _taskMessageData
-    private val _taskInsertedData = MutableLiveData<TaskState>()
+    private val _taskStateData = MutableLiveData<TaskState>()
     private val _taskMessageData = MutableLiveData<Int>()
+
+    fun removeTask(id: Long) = viewModelScope.launch {
+        try {
+            if (id > 0) {
+                repository.deleteTask(id)
+                _taskStateData.value = Deleted
+                _taskMessageData.value = R.string.task_delete_successfully
+            }
+
+        } catch (ex: Exception) {
+            _taskMessageData.value = R.string.task_delete_error
+            Log.i(TAG, ex.toString())
+        }
+    }
 
     fun addOrUpdateTask(title: String, description: String, id: Long = 0) {
         if (id > 0) {
@@ -31,7 +46,7 @@ class TaskViewModel(
         try {
             repository.updateTask(id, title, description)
 
-            _taskInsertedData.value = Updated
+            _taskStateData.value = Updated
             _taskMessageData.value = R.string.task_updated_successfully
         } catch (ex: Exception) {
             _taskMessageData.value = R.string.task_error_to_update
@@ -42,20 +57,21 @@ class TaskViewModel(
         try {
             repository.insertTask(title, description).let { id ->
                 if (id > 0) {
-                    _taskInsertedData.value = Inserted
+                    _taskStateData.value = Inserted
                     _taskMessageData.value = R.string.task_insert_successfully
                 }
             }
 
-        } catch (exception: Exception) {
+        } catch (ex: Exception) {
             _taskMessageData.value = R.string.task_error_to_insert
-            Log.i(TAG, exception.message.toString())
+            Log.i(TAG, ex.message.toString())
         }
     }
 
     sealed class TaskState {
         object Inserted : TaskState()
         object Updated : TaskState()
+        object Deleted : TaskState()
     }
 
     companion object {

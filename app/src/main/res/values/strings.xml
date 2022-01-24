@@ -12,4 +12,6 @@
     <string name="task_error_to_update">Ops! Houve um erro ao atualizar essa tarefa</string>
     <string name="error_task_title">Informe o título da tarefa</string>
     <string name="btn_delete">Deletar</string>
+    <string name="task_delete_successfully">Tarefa deletada com sucesso</string>
+    <string name="task_delete_error">Ops! houve um erro ao deletar essa tarefa</string>
 </resources>

@@ -18,6 +18,7 @@ import com.michelle.todolist.data.db.dao.TaskDAO
 import com.michelle.todolist.data.repository.DataBaseDataSource
 import com.michelle.todolist.data.repository.TaskRepository
 import com.michelle.todolist.databinding.TaskFragmentBinding
+import com.michelle.todolist.ui.task.TaskViewModel.TaskState.Deleted
 import com.michelle.todolist.ui.task.TaskViewModel.TaskState.Inserted
 import com.michelle.todolist.ui.task.TaskViewModel.TaskState.Updated
 import com.michelle.todolist.util.hideKeyboard
@@ -48,9 +49,10 @@ class TaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         args?.taskData?.let { task ->
-            binding.TIETTaskTitle.setText(task.title.toString())
+            binding.TIETTaskTitle.setText(task.title)
             binding.TIETTaskDescription.setText(task.description.toString())
             binding.btnRegister.text = getString(R.string.btn_update)
+            binding.btnDelete.visibility = View.VISIBLE
         }
 
         observeEvents()
@@ -58,13 +60,11 @@ class TaskFragment : Fragment() {
     }
 
     private fun observeEvents() {
-        viewModel.taskInsertedData.observe(viewLifecycleOwner) { taskState ->
+        viewModel.taskState.observe(viewLifecycleOwner) { taskState ->
             when (taskState) {
-                Inserted -> {
-                    clearFields()
-                    hideKeyboard()
-                }
-                Updated -> {
+                is Inserted,
+                is Updated,
+                is Deleted -> {
                     clearFields()
                     hideKeyboard()
                     findNavController().popBackStack()
@@ -100,6 +100,10 @@ class TaskFragment : Fragment() {
                 binding.TILTaskTitle.error = getString(R.string.error_task_title)
             else
                 viewModel.addOrUpdateTask(title, description, args?.taskData?.id ?: 0)
+        }
+
+        binding.btnDelete.setOnClickListener {
+            viewModel.removeTask(args?.taskData?.id ?: 0)
         }
     }
 }
