@@ -7,7 +7,7 @@
 ## About project:
 This project is a simple To do list application to learn about [Room DataBase](https://developer.android.com/jetpack/androidx/releases/room), [Navigation](https://developer.android.com/jetpack/androidx/releases/navigation) and dependency injection with [Koin](https://insert-koin.io/docs/reference/introduction)
 
-## Libs and Frameworks used in this project:
+## Libs used in this project:
 - Data binding
 - Material design components
 - Navigation fragment
