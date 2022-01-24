@@ -5,7 +5,11 @@
     <string name="task_description_hint">Descreva sua tarefa</string>
     <string name="task_title_hint">Titulo da tarefa</string>
     <string name="btn_register">Cadastrar</string>
+    <string name="btn_update">Atualizar</string>
     <string name="task_insert_successfully">Tarefa cadastrada com sucesso!</string>
+    <string name="task_updated_successfully">Tarefa atualizada com sucesso!</string>
     <string name="task_error_to_insert">Ops! Houve um erro ao cadastrar essa tarefa</string>
+    <string name="task_error_to_update">Ops! Houve um erro ao atualizar essa tarefa</string>
     <string name="error_task_title">Informe o título da tarefa</string>
+    <string name="btn_delete">Deletar</string>
 </resources>

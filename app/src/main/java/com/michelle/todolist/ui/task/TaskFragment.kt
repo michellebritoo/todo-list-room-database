@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.michelle.todolist.R
 import com.michelle.todolist.data.db.AppDataBase
@@ -17,10 +18,13 @@ import com.michelle.todolist.data.db.dao.TaskDAO
 import com.michelle.todolist.data.repository.DataBaseDataSource
 import com.michelle.todolist.data.repository.TaskRepository
 import com.michelle.todolist.databinding.TaskFragmentBinding
+import com.michelle.todolist.ui.task.TaskViewModel.TaskState.Inserted
+import com.michelle.todolist.ui.task.TaskViewModel.TaskState.Updated
 import com.michelle.todolist.util.hideKeyboard
 
 class TaskFragment : Fragment() {
     private lateinit var binding: TaskFragmentBinding
+    private val args: TaskFragmentArgs? by navArgs()
     private val viewModel: TaskViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -43,15 +47,28 @@ class TaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        args?.taskData?.let { task ->
+            binding.TIETTaskTitle.setText(task.title.toString())
+            binding.TIETTaskDescription.setText(task.description.toString())
+            binding.btnRegister.text = getString(R.string.btn_update)
+        }
+
         observeEvents()
         setListeners()
     }
 
     private fun observeEvents() {
-        viewModel.taskInsertedData.observe(viewLifecycleOwner) { isInserted ->
-            if (isInserted) {
-                clearFields()
-                hideKeyboard()
+        viewModel.taskInsertedData.observe(viewLifecycleOwner) { taskState ->
+            when (taskState) {
+                Inserted -> {
+                    clearFields()
+                    hideKeyboard()
+                }
+                Updated -> {
+                    clearFields()
+                    hideKeyboard()
+                    findNavController().popBackStack()
+                }
             }
         }
         viewModel.taskMessageData.observe(viewLifecycleOwner) { stringResID ->
@@ -66,7 +83,6 @@ class TaskFragment : Fragment() {
         binding.TIETTaskDescription.text?.clear()
         binding.TILTaskTitle.error = null
     }
-
 
     private fun hideKeyboard() {
         val parentActivity = requireActivity()
@@ -83,8 +99,7 @@ class TaskFragment : Fragment() {
             if (title.isEmpty())
                 binding.TILTaskTitle.error = getString(R.string.error_task_title)
             else
-                viewModel.addTask(title, description)
-
+                viewModel.addOrUpdateTask(title, description, args?.taskData?.id ?: 0)
         }
     }
 }
