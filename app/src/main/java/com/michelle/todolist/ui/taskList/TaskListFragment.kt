@@ -35,13 +35,23 @@ class TaskListFragment : Fragment() {
         viewModel.getTasks()
     }
 
-    private fun observeEvents() {
+    private fun observeEvents() = with(binding) {
         viewModel.taskList.observe(viewLifecycleOwner) { taskList ->
-            binding.RVTaskList.adapter = TaskListAdapter(list = taskList).apply {
-                onItemClick = { task ->
-                    val directions =
-                        TaskListFragmentDirections.actionTaskListFragmentToTaskFragment(task)
-                    findNavController().navigate(directions)
+            when {
+                taskList.isEmpty() -> {
+                    RVTaskList.visibility = View.GONE
+                    LLEmptyList.visibility = View.VISIBLE
+                }
+                else -> {
+                    RVTaskList.visibility = View.VISIBLE
+                    LLEmptyList.visibility = View.GONE
+
+                    RVTaskList.adapter = TaskListAdapter(list = taskList).apply {
+                        onItemClick = { task ->
+                            val directions = TaskListFragmentDirections.actionTaskListFragmentToTaskFragment(task)
+                            findNavController().navigate(directions)
+                        }
+                    }
                 }
             }
         }

@@ -14,4 +14,5 @@
     <string name="btn_delete">Deletar</string>
     <string name="task_delete_successfully">Tarefa deletada com sucesso</string>
     <string name="task_delete_error">Ops! houve um erro ao deletar essa tarefa</string>
+    <string name="empty_task_list">Ops! Parece que você ainda não cadastrou nenhuma tarefa!</string>
 </resources>

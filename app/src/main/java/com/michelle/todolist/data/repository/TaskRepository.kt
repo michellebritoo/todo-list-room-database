@@ -1,6 +1,5 @@
 package com.michelle.todolist.data.repository
 
-import androidx.lifecycle.LiveData
 import com.michelle.todolist.data.db.entity.TaskEntity
 
 interface TaskRepository {

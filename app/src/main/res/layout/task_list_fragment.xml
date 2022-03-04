@@ -6,6 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".ui.taskList.TaskListFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/LL_empty_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_empty_list"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/TV_empty_task_list"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/sixteen_size"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/eight_value"
+            android:textAlignment="center"
+            android:text="@string/empty_task_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RV_task_list"
         android:layout_width="match_parent"
